@@ -24,26 +24,6 @@ enum {
   ANALOG       // 0b 11
 };
 
-// Alternate Function values (GPIOx_AFRL and GPIOx_AFRH)
-enum {
-  AF0 = 0x0, // 0b 0000
-  AF1,       // 0b 0001
-  AF2,       // 0b 0010
-  AF3,       // 0b 0011
-  AF4,       // 0b 0100
-  AF5,       // 0b 0101
-  AF6,       // 0b 0110
-  AF7,       // 0b 0111
-  AF8,       // 0b 1000
-  AF9,       // 0b 1001
-  AF10,      // 0b 1010
-  AF11,      // 0b 1011
-  AF12,      // 0b 1100
-  AF13,      // 0b 1101
-  AF14,      // 0b 1110
-  AF15       // 0b 1111
-};
-
 struct LedDef {
   GPIO_TypeDef *GPIOx;
   uint32_t pin;
