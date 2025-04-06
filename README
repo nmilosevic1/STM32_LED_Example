@@ -1,0 +1,53 @@
+README file for simple LED stm32 project
+
+Generic code to get LEDs working on hopefully any stm32 board.
+This was built for the nucleo-f767zi board but it is generic enough to be adapted to other boards
+* See the my_board_info.h file
+
+I successfully built for 2 other boards (H743 and H503) with simple edits to the one header file.
+     (and myLeds in main.c for H503 since it only has 1 user LED)
+
+
+I built with CubeIDE:
+Get the STM32 CubeIDE software and create a new empty STM32 C project
+-------------------------------------------------------------
+Go to st.com:  Login or Register
+Download and install the latest CubeIDE software package and install it
+Launch CubeIDE and create a workspace
+  Start a new STM32 project:   File -> New -> STM32 Project
+  Board selector will open, there you enter your board number (e.g. stm32f767)
+  Find your board in the search results frame, select it and click Next
+  Language: C, Project Type: Empty, Name your project whatever you like
+
+
+Download your board's firmware from st.com
+------------------------------------------
+scroll down to Get Software and download the latest package for your board
+  e.g. https://www.st.com/en/embedded-software/stm32cubef7.html             e.g.
+unzip, then copy both Drivers/CMSIS/Include/ and Drivers/CMSIS/Device/ST/STM32F7xx/Include directories into your project
+
+  Add these subdirectories into your project build:
+    Project -> Properties -> Paths and Symbols
+    Includes -> Add...                                                           e.g.
+      add the paths for wherever you copied CMSIS/Include/ and CMSIS/Device/ST/STM32F7xx/Include
+
+
+Select your board 
+----------------------
+Edit the generic header for your board (e.g. stm32f7xx.h)
+Scroll down to the #if that defines the boards     e.g.
+    #if !defined (STM32F756xx) && !defined (STM32F746xx) && !defined (STM32F745xx) && !defined (STM32F765xx) && \
+        !defined (STM32F767xx) && !defined (STM32F769xx) && !defined (STM32F777xx) && !defined (STM32F779xx) && \
+        !defined (STM32F722xx) && !defined (STM32F723xx) && !defined (STM32F732xx) && !defined (STM32F733xx) && \
+        !defined (STM32F730xx) && !defined (STM32F750xx)
+Inside that #if, scroll down to YOUR board definition and UNcomment it.
+e.g. this define:
+       #define STM32F767xx        /*!< STM32F767BG, STM32F767BI, STM32F767IG, STM32F767II, STM32F767NG, STM32F767NI,
+                                   STM32F767VG, STM32F767VI, STM32F767ZG, STM32F767ZI Devices */
+    
+Copy my_board_info.h and gpio.h into your project Inc/ directory 
+and copy gpio.c and main.c into your project Src/ directory
+
+Update my_board_info.h with your board's LED pin(s), port(s) and bus info.
+Update myLeds in main.c with your LED pins/ports (only if you don't have 3 user LEDs).
+
